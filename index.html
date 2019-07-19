@@ -10,35 +10,6 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
   </head>
 
-  <script>
-    var config = {
-      autoStartLoad: true,
-      startPosition: -30,
-      debug: false,
-    };
-
-    var video = document.getElementById('video');
-    if(Hls.isSupported()) {
-      var hls = new Hls(config);
-      hls.loadSource('sample/HLS/test_stream.m3u8');
-      hls.attachMedia(video);
-      hls.on(Hls.Events.MANIFEST_PARSED,function() {
-        video.play();
-      });
-    }
-    // hls.js is not supported on platforms that do not have Media Source Extensions (MSE) enabled.
-    // When the browser has built-in HLS support (check using `canPlayType`), we can provide an HLS manifest (i.e. .m3u8 URL) directly to the video element throught the `src` property.
-    // This is using the built-in support of the plain video element, without using hls.js.
-    // Note: it would be more normal to wait on the 'canplay' event below however on Safari (where you are most likely to find built-in HLS support) the video.src URL must be on the user-driven
-    // white-list before a 'canplay' event will be emitted; the last video event that can be reliably listened-for when the URL is not on the white-list is 'loadedmetadata'.
-    else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = 'sample/HLS/test_stream.m3u8';
-      video.addEventListener('loadedmetadata',function() {
-        video.play();
-      });
-    }
-  </script>
-
   <body>
     <section class="page-header">
       <h1 class="project-name">HLS_verification</h1>
@@ -47,6 +18,39 @@
       <a href="https://github.com/idlecafe/HLS_verification/zipball/master" class="btn">Download .zip</a>
       <a href="https://github.com/idlecafe/HLS_verification/tarball/master" class="btn">Download .tar.gz</a>
     </section>
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<!-- Or if you want a more recent canary version -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/hls.js@canary"></script> -->
+<video id="video"></video>
+<script>
+  var config = {
+    autoStartLoad: true,
+    startPosition: -30,
+    debug: false,
+  };
+
+  var video = document.getElementById('video');
+  if(Hls.isSupported()) {
+    var hls = new Hls(config);
+    hls.loadSource('sample/HLS/test_stream.m3u8');
+    hls.attachMedia(video);
+    hls.on(Hls.Events.MANIFEST_PARSED,function() {
+      video.play();
+    });
+  }
+  // hls.js is not supported on platforms that do not have Media Source Extensions (MSE) enabled.
+  // When the browser has built-in HLS support (check using `canPlayType`), we can provide an HLS manifest (i.e. .m3u8 URL) directly to the video element throught the `src` property.
+  // This is using the built-in support of the plain video element, without using hls.js.
+  // Note: it would be more normal to wait on the 'canplay' event below however on Safari (where you are most likely to find built-in HLS support) the video.src URL must be on the user-driven
+  // white-list before a 'canplay' event will be emitted; the last video event that can be reliably listened-for when the URL is not on the white-list is 'loadedmetadata'.
+  else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    video.src = 'sample/HLS/test_stream.m3u8';
+    video.addEventListener('loadedmetadata',function() {
+      video.play();
+    });
+  }
+</script>
 
     <section class="main-content">
       <h3>
@@ -73,10 +77,6 @@
 <a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Support or Contact</h3>
 
 <p>Having trouble with Pages? Check out our <a href="https://help.github.com/pages">documentation</a> or <a href="https://github.com/contact">contact support</a> and we’ll help you sort it out.</p>
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-<!-- Or if you want a more recent canary version -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/hls.js@canary"></script> -->
-<video id="video"></video>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/idlecafe/HLS_verification">HLS_verification</a> is maintained by <a href="https://github.com/idlecafe">idlecafe</a>.</span>
