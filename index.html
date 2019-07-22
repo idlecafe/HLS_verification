@@ -4,10 +4,7 @@
     <meta charset="UTF-8">
     <title>HLS_verification by idlecafe</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
   </head>
 
   <body>
@@ -22,12 +19,12 @@
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <!-- Or if you want a more recent canary version -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/hls.js@canary"></script> -->
-<video id="video"></video>
+<video muted controls id="video"></video>
 <script>
   var config = {
     autoStartLoad: true,
-    startPosition: -30,
-    debug: false,
+    startPosition: -2,
+    debug: true,
   };
 
   var video = document.getElementById('video');
@@ -35,7 +32,7 @@
     var hls = new Hls(config);
     hls.loadSource('sample/HLS/test_stream.m3u8');
     hls.attachMedia(video);
-    hls.on(Hls.Events.MANIFEST_PARSED,function() {
+    hls.on(Hls.Events.MANIFEST_PARSED,function (event, data) {
       video.play();
     });
   }
